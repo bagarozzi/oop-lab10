@@ -61,6 +61,7 @@ public final class LambdaUtilities {
         /*
          * Suggestion: consider Optional.filter
          */
+        List<Optional<T>> opt = new ArrayList<Optional<T>>();
         return null;
     }
 
