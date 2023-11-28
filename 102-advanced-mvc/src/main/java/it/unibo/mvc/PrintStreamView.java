@@ -58,4 +58,7 @@ public final class PrintStreamView implements DrawNumberView {
         out.println(res.getDescription());
     }
 
+    public void displayError(String message){
+        out.println("An error has occoured: " + message);
+    }
 }
