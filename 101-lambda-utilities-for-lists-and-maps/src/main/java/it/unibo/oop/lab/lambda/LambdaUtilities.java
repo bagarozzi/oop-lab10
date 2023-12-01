@@ -84,7 +84,7 @@ public final class LambdaUtilities {
          * Suggestion: consider Map.merge
          */
         final Map<R, Set<T>> map = new HashMap<>();
-        list.forEach(t -> {
+        /* list.forEach(t -> {
             final R computedKey = op.apply(t);
             if (map.containsKey(computedKey)) {
                 map.get(computedKey).add(t);
@@ -94,6 +94,14 @@ public final class LambdaUtilities {
                 newSet.add(t);
                 map.put(computedKey, newSet);
             }
+        }); */
+        list.forEach(t -> {
+            map.merge(op.apply(t), Set.of(t), (oldSet, newSet) -> {
+                Set<T> tmp = new TreeSet<T>();
+                tmp.addAll(oldSet);
+                tmp.addAll(newSet);
+                return tmp;
+            });
         });
         return map;
     }
