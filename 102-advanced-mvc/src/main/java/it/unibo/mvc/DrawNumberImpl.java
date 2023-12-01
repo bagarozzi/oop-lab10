@@ -24,6 +24,16 @@ public final class DrawNumberImpl implements DrawNumber {
         this.reset();
     }
 
+    public DrawNumberImpl(Configuration config){
+        if(!config.isConsistent()){
+            throw new IllegalArgumentException("The game requires a valid configuration");
+        }
+        max = config.getMax();
+        min = config.getMin();
+        attempts = config.getAttempts();
+        this.reset();
+    }
+
     @Override
     public void reset() {
         this.remainingAttempts = this.attempts;

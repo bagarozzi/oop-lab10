@@ -1,8 +1,12 @@
 package it.unibo.mvc;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import it.unibo.mvc.Configuration;
 
 /**
  */
@@ -27,7 +31,25 @@ public final class DrawNumberApp implements DrawNumberViewObserver {
             view.setObserver(this);
             view.start();
         }
-        this.model = new DrawNumberImpl(MIN, MAX, ATTEMPTS);
+        Configuration.Builder cb = new Configuration.Builder();
+        try {
+            for(String line : Files.readAllLines(Path.of("/Users/bagarozzi/uni/oop/oop-lab10/102-advanced-mvc/src/main/resources/config.yml"))){
+                if(line.contains("min")){
+                    cb.setMin(Integer.parseInt(line.substring(line.indexOf(":") + 1, line.length())));
+                }
+                else if(line.contains("max")){
+                    cb.setMax(Integer.parseInt(line.substring(line.indexOf(":") + 1, line.length())));
+                }
+                else {
+                    cb.setAttempts((Integer.parseInt(line.substring(line.indexOf(":") + 1, line.length()))));
+                }
+            }
+
+        }catch(IOException e){
+            System.out.println("Error opening the file");
+        }
+
+        this.model = new DrawNumberImpl(cb.build());
     }
 
     @Override
