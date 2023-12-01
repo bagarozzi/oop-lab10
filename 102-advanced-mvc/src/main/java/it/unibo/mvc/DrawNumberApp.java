@@ -35,18 +35,21 @@ public final class DrawNumberApp implements DrawNumberViewObserver {
         try {
             for(String line : Files.readAllLines(Path.of("/Users/bagarozzi/uni/oop/oop-lab10/102-advanced-mvc/src/main/resources/config.yml"))){
                 if(line.contains("min")){
-                    cb.setMin(Integer.parseInt(line.substring(line.indexOf(":") + 1, line.length())));
+                    cb.setMin(Integer.parseInt(line.substring(line.indexOf(":") + 2, line.length())));
                 }
                 else if(line.contains("max")){
-                    cb.setMax(Integer.parseInt(line.substring(line.indexOf(":") + 1, line.length())));
+                    cb.setMax(Integer.parseInt(line.substring(line.indexOf(":") + 2, line.length())));
                 }
                 else {
-                    cb.setAttempts((Integer.parseInt(line.substring(line.indexOf(":") + 1, line.length()))));
+                    cb.setAttempts((Integer.parseInt(line.substring(line.indexOf(":") + 2, line.length()))));
                 }
             }
 
         }catch(IOException e){
-            System.out.println("Error opening the file");
+            System.out.println("Error opening the file, loading default values instead...");
+            cb.setMin(MIN);
+            cb.setMax(MAX);
+            cb.setAttempts(ATTEMPTS);
         }
 
         this.model = new DrawNumberImpl(cb.build());
