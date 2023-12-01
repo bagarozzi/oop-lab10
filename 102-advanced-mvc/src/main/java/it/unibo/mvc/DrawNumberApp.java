@@ -90,7 +90,7 @@ public final class DrawNumberApp implements DrawNumberViewObserver {
      * @throws FileNotFoundException 
      */
     public static void main(final String... args) throws FileNotFoundException {
-        new DrawNumberApp(new DrawNumberViewImpl());
+        new DrawNumberApp(new DrawNumberViewImpl(), new DrawNumberViewImpl(), new PrintStreamView(System.out), new PrintStreamView("/Users/bagarozzi/uni/oop/oop-lab10/102-advanced-mvc/src/main/java/it/unibo/mvc/logs.txt"));
     }
 
 }
